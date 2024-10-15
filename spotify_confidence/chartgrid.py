@@ -12,11 +12,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TODO: Add support for the format parameter.
-from chartify import Chart as ChartifyChart
-from bokeh.io import show
-from bokeh.plotting import figure as BokehFigure
 from typing import Iterable
+
+from bokeh.io import show
+from bokeh.io.export import get_screenshot_as_png
+from bokeh.plotting import figure as BokehFigure
+from chartify import Chart as ChartifyChart
+from IPython.display import display
 
 
 class ChartGrid:
@@ -37,6 +39,10 @@ class ChartGrid:
             if type(chart) == ChartifyChart:
                 chart.show(format=format)
             elif type(chart) == BokehFigure:
-                show(chart)
+                if format == "png":
+                    image = get_screenshot_as_png(chart)
+                    display(image)
+                else:
+                    show(chart)
             else:
                 print("Unsupported chart type: ", type(chart))
