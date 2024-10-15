@@ -12,7 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# TODO: Move this to chartify.
+# TODO: Add support for the format parameter.
+from chartify import Chart as ChartifyChart
+from bokeh.io import show
+from bokeh.plotting import figure as BokehFigure
 from typing import Iterable
 
 
@@ -31,4 +34,9 @@ class ChartGrid:
 
     def show(self, format="html"):
         for chart in self.charts:
-            chart.show(format=format)
+            if type(chart) == ChartifyChart:
+                chart.show(format=format)
+            elif type(chart) == BokehFigure:
+                show(chart)
+            else:
+                print("Unsupported chart type: ", type(chart))

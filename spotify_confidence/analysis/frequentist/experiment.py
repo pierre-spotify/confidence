@@ -17,7 +17,7 @@ from typing import Union, Iterable, Tuple, Dict, List
 from pandas import DataFrame
 
 from spotify_confidence.analysis.frequentist.confidence_computers.confidence_computer import ConfidenceComputer
-from .chartify_grapher import ChartifyGrapher
+from .bokeh_grapher import BokehGrapher
 from ..abstract_base_classes.confidence_abc import ConfidenceABC
 from ..abstract_base_classes.confidence_computer_abc import ConfidenceComputerABC
 from ..abstract_base_classes.confidence_grapher_abc import ConfidenceGrapherABC
@@ -127,7 +127,7 @@ class Experiment(ConfidenceABC):
         self._confidence_grapher = (
             confidence_grapher
             if confidence_grapher is not None
-            else ChartifyGrapher(
+            else BokehGrapher(
                 data_frame=self._df,
                 numerator_column=self._numerator,
                 denominator_column=self._denominator,
